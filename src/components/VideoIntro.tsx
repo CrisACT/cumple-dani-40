@@ -71,7 +71,6 @@ export default function VideoIntro({ onFinish }: VideoIntroProps) {
                   src={`https://player.vimeo.com/video/${VIMEO_VIDEO_ID}?autoplay=1&muted=1&loop=0&title=0&byline=0&portrait=0&color=C9A227&playsinline=1`}
                   className="absolute inset-0 w-full h-full"
                   allow="autoplay; fullscreen; picture-in-picture"
-                  allowFullScreen
                   title="Video de invitación"
                 />
               </div>
