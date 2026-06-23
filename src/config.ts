@@ -13,6 +13,7 @@ export const PARTY = {
   ciudad: 'Isla de Maipo',
   // ISO date for countdown (Chile Summer Time = UTC-3, but party is in winter = UTC-4)
   isoDate: '2026-07-24T20:00:00-04:00',
+  tematica: 'Lentes Divertidos',
   spotifyPlaylistId: '4GY2SPUpikmZqtIKGENd8k',
   spotifyPlaylistUrl: 'https://open.spotify.com/playlist/4GY2SPUpikmZqtIKGENd8k',
 };

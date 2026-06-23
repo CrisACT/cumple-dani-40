@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Calendar, Clock, MapPin, Sparkles, Heart } from 'lucide-react';
+import { Calendar, Clock, MapPin, Sparkles, Heart, Glasses } from 'lucide-react';
 import FadeIn from './FadeIn';
 import { PARTY } from '../config';
 
@@ -23,10 +23,16 @@ const DETAILS = [
     sub: PARTY.ciudad,
   },
   {
+    icon: Glasses,
+    label: 'Temática',
+    value: PARTY.tematica,
+    sub: 'Ven con los lentes más divertidos',
+  },
+  {
     icon: Sparkles,
     label: 'Dress Code',
     value: 'Elegante Casual',
-    sub: 'Tonos tierra y dorados ✨',
+    sub: 'Tonos tierra y dorados',
   },
 ];
 

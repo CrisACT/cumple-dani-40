@@ -1,29 +1,31 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PARTY } from '../config';
 
 function getTimeLeft() {
   const target = new Date(PARTY.isoDate).getTime();
-  const now = Date.now();
-  const diff = target - now;
+  const diff = target - Date.now();
   if (diff <= 0) return { dias: 0, horas: 0, minutos: 0, segundos: 0 };
-  const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const horas = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  const minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  const segundos = Math.floor((diff % (1000 * 60)) / 1000);
-  return { dias, horas, minutos, segundos };
+  return {
+    dias: Math.floor(diff / 86_400_000),
+    horas: Math.floor((diff % 86_400_000) / 3_600_000),
+    minutos: Math.floor((diff % 3_600_000) / 60_000),
+    segundos: Math.floor((diff % 60_000) / 1000),
+  };
 }
 
+// Animated digit: flips when value changes
 function Digit({ value, label }: { value: number; label: string }) {
+  const str = String(value).padStart(2, '0');
   return (
-    <div className="flex flex-col items-center gap-1.5">
+    <div className="flex flex-col items-center gap-2">
       <div
         style={{
           background: '#25251E',
           border: '1px solid rgba(201,162,39,0.25)',
           borderRadius: 14,
-          padding: 'clamp(0.6rem, 3vw, 1rem) clamp(0.7rem, 4vw, 1.4rem)',
-          minWidth: 'clamp(60px, 18vw, 88px)',
+          padding: 'clamp(0.5rem, 2.5vw, 0.9rem) clamp(0.6rem, 3.5vw, 1.2rem)',
+          minWidth: 'clamp(58px, 17vw, 84px)',
           textAlign: 'center',
           position: 'relative',
           overflow: 'hidden',
@@ -31,28 +33,56 @@ function Digit({ value, label }: { value: number; label: string }) {
       >
         <div
           style={{
-            position: 'absolute',
-            inset: 0,
+            position: 'absolute', inset: 0,
             background: 'linear-gradient(180deg, rgba(201,162,39,0.06) 0%, transparent 100%)',
             pointerEvents: 'none',
           }}
         />
-        <span
-          className="hero-heading"
-          style={{ fontSize: 'clamp(2rem, 10vw, 3.5rem)', fontWeight: 900, lineHeight: 1, display: 'block' }}
-        >
-          {String(value).padStart(2, '0')}
-        </span>
+        {/* key=str triggers AnimatePresence flip on every change */}
+        <AnimatePresence mode="popLayout" initial={false}>
+          <motion.span
+            key={str}
+            initial={{ y: -18, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 18, opacity: 0 }}
+            transition={{ duration: 0.18, ease: 'easeOut' }}
+            className="hero-heading"
+            style={{
+              fontSize: 'clamp(1.9rem, 9.5vw, 3.2rem)',
+              fontWeight: 900,
+              lineHeight: 1,
+              display: 'block',
+            }}
+          >
+            {str}
+          </motion.span>
+        </AnimatePresence>
       </div>
-      <span style={{ color: '#A7A296', fontSize: '0.58rem', letterSpacing: '0.25em', textTransform: 'uppercase' }}>
+      <span style={{ color: '#A7A296', fontSize: '0.56rem', letterSpacing: '0.25em', textTransform: 'uppercase' }}>
         {label}
       </span>
     </div>
   );
 }
 
+// Separator colon
+function Sep() {
+  return (
+    <div style={{
+      color: '#C9A227',
+      fontSize: 'clamp(1.4rem, 5.5vw, 2.2rem)',
+      fontWeight: 300,
+      alignSelf: 'flex-start',
+      paddingTop: 'clamp(0.5rem, 2vw, 0.8rem)',
+      opacity: 0.7,
+    }}>
+      :
+    </div>
+  );
+}
+
 export default function CountdownSection() {
-  const [time, setTime] = useState(getTimeLeft());
+  const [time, setTime] = useState(getTimeLeft);
   const partyStarted = new Date(PARTY.isoDate).getTime() <= Date.now();
 
   useEffect(() => {
@@ -75,7 +105,7 @@ export default function CountdownSection() {
             {partyStarted ? '¡Ya es hora de celebrar!' : 'Faltan'}
           </p>
           <h2 className="hero-heading" style={{ fontSize: 'clamp(1.8rem, 9vw, 3rem)', fontWeight: 800, lineHeight: 1 }}>
-            {partyStarted ? '¡Feliz Cumpleaños Dani! 🎉' : 'Para la Fiesta'}
+            {partyStarted ? '¡Feliz Cumpleaños Dani!' : 'Para la Fiesta'}
           </h2>
         </motion.div>
 
@@ -85,13 +115,15 @@ export default function CountdownSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.15 }}
-            className="flex gap-3 justify-center"
+            className="flex items-center gap-2 justify-center"
           >
             <Digit value={time.dias} label="Días" />
-            <div style={{ color: '#C9A227', fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', fontWeight: 300, alignSelf: 'flex-start', paddingTop: '0.7rem' }}>:</div>
+            <Sep />
             <Digit value={time.horas} label="Horas" />
-            <div style={{ color: '#C9A227', fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', fontWeight: 300, alignSelf: 'flex-start', paddingTop: '0.7rem' }}>:</div>
+            <Sep />
             <Digit value={time.minutos} label="Min" />
+            <Sep />
+            <Digit value={time.segundos} label="Seg" />
           </motion.div>
         )}
 
