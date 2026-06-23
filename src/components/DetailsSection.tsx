@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Calendar, Clock, MapPin, Sparkles, Heart, Glasses } from 'lucide-react';
+import { Calendar, Clock, MapPin, Heart, Glasses } from 'lucide-react';
 import FadeIn from './FadeIn';
 import { PARTY } from '../config';
 
@@ -8,7 +8,6 @@ const DETAILS = [
   { icon: Clock,    label: 'Hora',     value: PARTY.hora,      sub: 'En punto' },
   { icon: MapPin,   label: 'Lugar',    value: PARTY.lugar,     sub: PARTY.ciudad },
   { icon: Glasses,  label: 'Temática', value: PARTY.tematica,  sub: 'Ven con los lentes más divertidos' },
-  { icon: Sparkles, label: 'Dress Code', value: 'Elegante Casual', sub: 'Tonos tierra y dorados' },
 ];
 
 // Icon background palette per index
@@ -17,7 +16,6 @@ const ICON_GRADIENTS = [
   'linear-gradient(135deg, rgba(168,145,105,0.18), rgba(146,116,82,0.1))',
   'linear-gradient(135deg, rgba(146,116,82,0.18), rgba(201,162,39,0.1))',
   'linear-gradient(135deg, rgba(201,162,39,0.22), rgba(214,200,177,0.12))',
-  'linear-gradient(135deg, rgba(101,104,85,0.2),  rgba(168,145,105,0.1))',
 ];
 
 export default function DetailsSection() {
