@@ -68,7 +68,7 @@ export default function VideoIntro({ onFinish }: VideoIntroProps) {
             <div className="relative w-full max-w-sm mx-auto px-4">
               <div className="relative rounded-2xl overflow-hidden" style={{ paddingTop: '177.78%', border: '1px solid rgba(201,162,39,0.3)' }}>
                 <iframe
-                  src={`https://player.vimeo.com/video/${VIMEO_VIDEO_ID}?autoplay=1&muted=1&loop=0&title=0&byline=0&portrait=0&color=C9A227&playsinline=1`}
+                  src={`https://player.vimeo.com/video/${VIMEO_VIDEO_ID}?autoplay=1&muted=0&loop=0&title=0&byline=0&portrait=0&color=C9A227&playsinline=1`}
                   className="absolute inset-0 w-full h-full"
                   allow="autoplay; fullscreen; picture-in-picture"
                   title="Video de invitación"
