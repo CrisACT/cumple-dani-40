@@ -26,7 +26,7 @@ export default function RSVPForm({ onBack, onSuccess }: RSVPFormProps) {
     const { error: err } = await addGuest(nombre.trim(), apellido.trim());
     setLoading(false);
     if (err) {
-      setError('Ocurrió un error. Intenta nuevamente.');
+      setError(`Error: ${err}`);
     } else {
       setDone(true);
       setTimeout(onSuccess, 2200);
