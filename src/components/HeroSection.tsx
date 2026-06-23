@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion';
-import { PARTY } from '../config';
 
 interface HeroSectionProps {
   onRSVP: () => void;
