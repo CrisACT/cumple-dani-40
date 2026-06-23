@@ -5,6 +5,7 @@ import RSVPScreen from './components/RSVPScreen';
 import RSVPForm from './components/RSVPForm';
 import HeroSection from './components/HeroSection';
 import MarqueeSection from './components/MarqueeSection';
+import VideoReplaySection from './components/VideoReplaySection';
 import CountdownSection from './components/CountdownSection';
 import DetailsSection from './components/DetailsSection';
 import GuestListSection from './components/GuestListSection';
@@ -22,6 +23,8 @@ function MainPage({ onRSVP }: { onRSVP: () => void }) {
     >
       <HeroSection onRSVP={onRSVP} />
       <MarqueeSection />
+      {/* Video replay — between marquee and countdown */}
+      <VideoReplaySection />
       <CountdownSection />
       <DetailsSection />
       <GuestListSection />
@@ -30,14 +33,22 @@ function MainPage({ onRSVP }: { onRSVP: () => void }) {
       {/* Footer */}
       <footer
         style={{
-          background: '#25251E',
+          background: '#1E1E17',
           padding: '2.5rem 1.5rem',
           textAlign: 'center',
-          borderTop: '1px solid rgba(201,162,39,0.15)',
+          borderTop: '1px solid rgba(201,162,39,0.13)',
         }}
       >
-        <p className="gold-shimmer" style={{ fontSize: '0.62rem', letterSpacing: '0.35em', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-          ✦ Daniela Poblete ✦ 40 Años ✦
+        <p
+          className="gold-shimmer"
+          style={{
+            fontSize: '0.62rem',
+            letterSpacing: '0.35em',
+            textTransform: 'uppercase',
+            marginBottom: '0.5rem',
+          }}
+        >
+          ✦ Daniela Poblete ✦ 4.0 Años ✦
         </p>
         <p style={{ color: '#A7A296', fontSize: '0.65rem' }}>
           Hecho con amor · 24 Julio 2026
@@ -51,7 +62,14 @@ export default function App() {
   const [screen, setScreen] = useState<Screen>('video');
 
   return (
-    <div style={{ maxWidth: 430, margin: '0 auto', minHeight: '100svh', background: '#F1F0EF' }}>
+    <div
+      style={{
+        maxWidth: 430,
+        margin: '0 auto',
+        minHeight: '100svh',
+        background: '#1E1E17',
+      }}
+    >
       <AnimatePresence mode="wait">
         {screen === 'video' && (
           <VideoIntro key="video" onFinish={() => setScreen('rsvp')} />
