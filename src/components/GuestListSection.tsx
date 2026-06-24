@@ -4,10 +4,13 @@ import { Users, RefreshCw, UserCheck } from 'lucide-react';
 import FadeIn from './FadeIn';
 import { getGuests, type Guest } from '../lib/supabase';
 
+const PAGE_SIZE = 10;
+
 export default function GuestListSection() {
   const [guests, setGuests] = useState<Guest[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const fetchGuests = async (isRefresh = false) => {
     if (isRefresh) setRefreshing(true);
@@ -98,7 +101,7 @@ export default function GuestListSection() {
               </div>
             </FadeIn>
           ) : (
-            guests.map((guest, i) => (
+            (expanded ? guests : guests.slice(0, PAGE_SIZE)).map((guest, i) => (
               <motion.div
                 key={guest.id}
                 initial={{ opacity: 0, x: -20 }}
@@ -148,7 +151,21 @@ export default function GuestListSection() {
           )}
         </div>
 
-        {/* Refresh button */}
+        {/* Expand / collapse + refresh */}
+        {!loading && guests.length > PAGE_SIZE && (
+          <FadeIn delay={0.15}>
+            <button
+              onClick={() => setExpanded(e => !e)}
+              className="btn-ghost w-full"
+              style={{ fontSize: '0.75rem' }}
+            >
+              {expanded
+                ? `Ver menos ↑`
+                : `Ver todos (${guests.length}) ↓`}
+            </button>
+          </FadeIn>
+        )}
+
         {!loading && (
           <FadeIn delay={0.2}>
             <button

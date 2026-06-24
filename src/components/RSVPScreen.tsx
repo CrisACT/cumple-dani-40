@@ -5,9 +5,10 @@ import { PARTY } from '../config';
 interface RSVPScreenProps {
   onAccept: () => void;
   onDecline: () => void;
+  onSkip: () => void;
 }
 
-export default function RSVPScreen({ onAccept, onDecline }: RSVPScreenProps) {
+export default function RSVPScreen({ onAccept, onDecline, onSkip }: RSVPScreenProps) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -152,6 +153,24 @@ export default function RSVPScreen({ onAccept, onDecline }: RSVPScreenProps) {
           <button className="btn-ghost w-full" onClick={onDecline} style={{ fontSize: '0.8rem' }}>
             <X size={14} />
             No podré asistir
+          </button>
+          <button
+            onClick={onSkip}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              color: '#A7A296',
+              fontSize: '0.7rem',
+              letterSpacing: '0.08em',
+              textAlign: 'center',
+              padding: '0.4rem',
+              width: '100%',
+              textDecoration: 'underline',
+              textUnderlineOffset: 3,
+            }}
+          >
+            Ya confirmé, ver la invitación →
           </button>
         </motion.div>
 

@@ -79,6 +79,7 @@ export default function App() {
             key="rsvp"
             onAccept={() => setScreen('form')}
             onDecline={() => setScreen('main')}
+            onSkip={() => setScreen('main')}
           />
         )}
         {screen === 'form' && (
