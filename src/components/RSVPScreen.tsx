@@ -157,20 +157,30 @@ export default function RSVPScreen({ onAccept, onDecline, onSkip }: RSVPScreenPr
           <button
             onClick={onSkip}
             style={{
-              background: 'none',
-              border: 'none',
+              background: 'rgba(167,162,150,0.07)',
+              border: '1px solid rgba(167,162,150,0.3)',
+              borderRadius: 9999,
               cursor: 'pointer',
-              color: '#A7A296',
-              fontSize: '0.7rem',
-              letterSpacing: '0.08em',
+              color: '#D6C8B1',
+              fontSize: '0.78rem',
+              fontWeight: 500,
+              letterSpacing: '0.06em',
               textAlign: 'center',
-              padding: '0.4rem',
+              padding: '0.75rem 1.5rem',
               width: '100%',
-              textDecoration: 'underline',
-              textUnderlineOffset: 3,
+              fontFamily: 'Kanit, sans-serif',
+              transition: 'background 0.2s, border-color 0.2s',
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLButtonElement).style.background = 'rgba(167,162,150,0.14)';
+              (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(167,162,150,0.55)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLButtonElement).style.background = 'rgba(167,162,150,0.07)';
+              (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(167,162,150,0.3)';
             }}
           >
-            Ya confirmé, ver la invitación →
+            Ya confirmé — ver la invitación →
           </button>
         </motion.div>
 
